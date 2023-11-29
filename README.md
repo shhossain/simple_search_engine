@@ -35,13 +35,13 @@ Before you dive in, make sure you meet the following requirements:
 4. Clone the repository:
 
    ```bash
-   git clone https://
+   git clone https://github.com/shhossain/simple_search_engine
    ```
 
 5. Navigate to the root of your project.
 
    ```bash
-   cd your_repository
+   cd simple_search_engine
    ```
 
 6. Create a `.env` file in the project's root with the following content:
@@ -137,4 +137,4 @@ Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUT
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Apache License 2.0](LICENSE).

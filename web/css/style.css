@@ -1,0 +1,43 @@
+body {
+  height: 100vh;
+  width: 100vw;
+}
+.logo {
+  margin-top: 10%;
+}
+
+.input {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  margin: auto;
+}
+
+.searchHeader {
+  color: #92ccff;
+  text-decoration: none;
+}
+
+.searchHeader:hover {
+  text-decoration: underline;
+}
+
+.searchPara {
+  color: #bdc1c6;
+}
+
+.favicon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.modal-content {
+  border-radius: 10px;
+}
+
+
+.modal-footer {
+  border-radius: 0 0 10px 10px;
+}

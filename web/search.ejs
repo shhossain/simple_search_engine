@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <% const query=data.query %>
+    <title>
+      <%= query %> - Rapid Search
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="/logo.png" />
+
+
+</head>
+
+<body class="bg-dark text-white container py-5">
+  <!-- =================================================================== -->
+  <div id="results">
+
+
+    <% const results=data.results %>
+      <% const firstResult=results[0] %>
+        <section>
+          <div>
+            <span>
+              <img src="https://www.google.com/s2/favicons?domain=<%= firstResult.domain %>" class="favicon"
+                alt="favicon" />
+              <span>
+                <%= firstResult.path %>
+              </span>
+            </span>
+          </div>
+          <div>
+            <a href="<%= firstResult.url %>" class="searchHeader h5">
+              <%= firstResult.title %>
+            </a>
+            <p class="w-75 searchPara">
+              <%= firstResult.summary %>
+            </p>
+          </div>
+
+          <% if (firstResult.firstResult) { %>
+            <% firstResult.searchResults.forEach((result)=> { %>
+              <div class="ms-3">
+                <a href="<%= result.url %>" class="searchHeader h5">
+                  <%= result.title %>
+                </a>
+                <p class="w-75 searchPara">
+                  <%= result.summary %>
+                </p>
+              </div>
+              <% }) %>
+              <!-- more results for same domain &dm=domain -->
+              <div class="bg-dark mb-2">
+                <a href="/search?q=<%= query %>&dm=<%= firstResult.domain %>" class="searchHeader">More results from
+                  <%= firstResult.domain %>
+                </a>
+              </div>
+
+                <% } %>
+        </section>
+
+        <% for (let i=1; i < results.length; i++) { %>
+          <section>
+            <div>
+              <span> <img src="https://www.google.com/s2/favicons?domain=<%= results[i].domain %>" class="favicon"
+                  alt="favicon" />
+                <span>
+                  <%= results[i].path %>
+                </span>
+            </div>
+            <div>
+              <a href="<%= results[i].url %>" class="searchHeader h5">
+                <%= results[i].title %>
+              </a>
+
+              <p class="w-75 searchPara">
+                <%= results[i].summary %>
+              </p>
+
+            </div>
+          </section>
+          <% } %>
+
+          <div class="spinner-border d-none text-center h-300" role="status" id="loading">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+  </div>
+  <!-- =================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+  <script>
+    const searchParas = document.querySelectorAll(".searchPara");
+    let query = "<%= query %>";
+    let page = parseInt("<%= data.page %>");
+
+
+    let parts = "<%= query %>".split(" ");
+    parts = parts.filter((part) => part !== "");
+    parts.forEach((part) => {
+      let a = part.charAt(0).toUpperCase() + part.slice(1);
+      let b = part.toUpperCase();
+      let c = part.toLowerCase();
+      if (a !== part) parts.push(a);
+      if (b !== part) parts.push(b);
+      if (c !== part) parts.push(c);
+    });
+
+    for (let i = 0; i < searchParas.length; i++) {
+      let text = searchParas[i].innerHTML;
+      for (let j = 0; j < parts.length; j++) {
+        let re = new RegExp(parts[j], "g");
+        text = text.replace(re, `<b>${parts[j]}</b>`);
+      }
+      searchParas[i].innerHTML = text;
+    }
+    
+    
+
+    let count = 0;
+    let loading = false;
+    
+    let totalPages = parseInt("<%= data.totalPages %>");
+    console.log(`Query: ${query}, Page: ${page}, TotalPages: ${totalPages}`);
+    $(window).scroll(function () {
+      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        console.log(`Query: ${query}, Page: ${page}, TotalPages: ${totalPages}`);
+        if (loading) return;
+        if (page >= totalPages) return;
+        page++;
+        const url = new URL(window.location.href);
+        url.searchParams.set("page", page);
+        url.searchParams.set("q", query);
+        
+        loading = true;
+        $("#loading").removeClass("d-none");
+        $.get(url, function (html) {
+          const sections = $(html).find("section");
+          sections.each(function (index, section) {
+            $("#results").append(section).show("slow");
+          });
+          loading = false;
+          $("#loading").addClass("d-none");
+          // add page to url
+          history.pushState({}, "", url);
+
+          count++;
+        });
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>

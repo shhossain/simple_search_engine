@@ -228,7 +228,6 @@ class PCrawler {
             //   }
             // }
 
-
             if (avoidPatterns.some((ext) => url.includes(ext))) {
               return false;
             }
@@ -258,39 +257,4 @@ class PCrawler {
   }
 }
 
-const args = process.argv.slice(2);
-if (require.main === module) {
-  if (args.length == 0) {
-    let text = `Usage: node crawler.js <url> [maxRequestsPerCrawl] [crawlerType]\n\n`;
-    text += `Parameters:\n`;
-    text += `  url: URL to crawl\n`;
-    text += `  maxRequestsPerCrawl: Maximum number of requests per crawl. Default: 100\n`;
-    text += `  crawlerType: Type of crawler. Default: cheerio\n`;
-    text += `    cheerio: Uses cheerio crawler\n`;
-    text += `    puppeteer: Uses puppeteer crawler\n`;
-    console.log(text);
-
-    process.exit(1);
-  }
-
-  const url = args[0];
-  let maxRequestsPerCrawl = 100;
-  let crawlerType = "cheerio";
-
-  if (args.length > 1) {
-    maxRequestsPerCrawl = parseInt(args[1]);
-  }
-  if (args.length > 2) {
-    crawlerType = args[2];
-  }
-
-  if (crawlerType == "cheerio") {
-    const crawler = new Crawler(url, maxRequestsPerCrawl);
-    await crawler.run();
-  } else {
-    const crawler = new PCrawler(url, maxRequestsPerCrawl);
-    await crawler.run();
-  }
-}
-
-export { Crawler, PCrawler}
+export { Crawler, PCrawler };

@@ -1,3 +1,5 @@
+![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_front.jpg?raw=true)
+
 # Simple JavaScript Search Engine
 
 This is a straightforward JavaScript search engine complete with a crawler, database integration, and a basic web server to facilitate search functionality.
@@ -73,6 +75,10 @@ node crawl.js https://www.example.com
 ```bash
 node server.js
 ```
+### Demo
+
+![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_front.jpg?raw=true)
+![Search Results](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_search.jpg?raw=true)
 
 The application should now be accessible at [http://localhost:3000](http://localhost:3000).
 

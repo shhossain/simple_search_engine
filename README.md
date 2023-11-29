@@ -63,10 +63,10 @@ npm install
 #### Crawl some sites
 
 ```bash
-node craw.js https://www.example.com
+node crawl.js https://www.example.com
 ```
 
-**Note:** Normally, a maximum of 100 pages will be crawled. You can add -1 to crawl all pages (e.g., `node craw.js https://www.example.com -1`).
+**Note:** Normally, a maximum of 100 pages will be crawled. You can add -1 to crawl all pages (e.g., `node crawl.js https://www.example.com -1`).
 
 #### Start the server
 

@@ -1,4 +1,4 @@
-![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_front.jpg?raw=true)
+![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine.jpg?raw=true)
 
 # Simple JavaScript Search Engine
 
@@ -77,8 +77,8 @@ node server.js
 ```
 ### Demo
 
-![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_front.jpg?raw=true)
-![Search Results](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_search.jpg?raw=true)
+![Search Engine](https://github.com/shhossain/simple_search_engine/blob/main/searchengine.jpg?raw=true)
+![Search Results](https://github.com/shhossain/simple_search_engine/blob/main/searchengine_results.jpg?raw=true)
 
 The application should now be accessible at [http://localhost:3000](http://localhost:3000).
 
